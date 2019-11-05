@@ -32,11 +32,10 @@ namespace TestingDriver
         [Test]
         public void TranslateWebSiteToEnglish()
         {
-            string translateButtonUrl = browser.FindElement(By.TagName("body")).FindElement(By.TagName("header")).FindElement(By.ClassName("header-inner"))
+            browser.Navigate().GoToUrl(browser.FindElement(By.TagName("body")).FindElement(By.TagName("header")).FindElement(By.ClassName("header-inner"))
                 .FindElement(By.ClassName("container")).FindElement(By.ClassName("header-row"))
                 .FindElements(By.TagName("div"))[3].FindElement(By.TagName("a"))
-                .GetAttribute("href");
-            browser.Navigate().GoToUrl(translateButtonUrl);
+                .GetAttribute("href"));
             Assert.IsTrue(browser.FindElement(By.TagName("html")).GetAttribute("lang") == "en");
         }
 
@@ -49,16 +48,14 @@ namespace TestingDriver
         [Test]
         public void BuyTicketThroughSearchWindow()
         {
-            string searchButtonMainWindowUrl = browser.FindElement(By.TagName("body")).FindElement(By.TagName("header")).FindElement(By.ClassName("header-inner"))
+            browser.Navigate().GoToUrl(browser.FindElement(By.TagName("body")).FindElement(By.TagName("header")).FindElement(By.ClassName("header-inner"))
                .FindElement(By.ClassName("container")).FindElement(By.ClassName("header-row"))
                .FindElements(By.TagName("div"))[3].FindElements(By.TagName("a"))[1]
-               .GetAttribute("href");
-            browser.Navigate().GoToUrl(searchButtonMainWindowUrl);
+               .GetAttribute("href"));
 
             browser.FindElement(By.Name("q")).SendKeys("Купить билеты");
-            IWebElement searchButtonSearchWindow = browser.FindElement(By.TagName("section")).FindElement(By.ClassName("container"))
-                .FindElement(By.TagName("form")).FindElement(By.ClassName("search-btn-shell")).FindElement(By.TagName("button"));
-            searchButtonSearchWindow.Click();
+            browser.FindElement(By.TagName("section")).FindElement(By.ClassName("container"))
+                .FindElement(By.TagName("form")).FindElement(By.ClassName("search-btn-shell")).FindElement(By.TagName("button")).Click();
 
             browser.Navigate().GoToUrl(browser.FindElement(By.XPath("//a[@class='search-result']")).GetAttribute("href"));
             Assert.IsTrue(browser.Url == "https://gsv.aero/services/booking-tickets/");
